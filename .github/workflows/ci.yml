@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Laravel ${{ matrix.laravel }} / PHP ${{ matrix.php }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { laravel: '10', php: '8.1' }
+          - { laravel: '11', php: '8.2' }
+          - { laravel: '12', php: '8.3' }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: curl, json
+          coverage: none
+          tools: composer:v2
+      # composer.l<N>.json: composer.json pinned to one Laravel major (bin/matrix-composer.php)
+      - run: php bin/matrix-composer.php ${{ matrix.laravel }} ${{ matrix.php }}
+      - run: composer update --no-interaction --no-progress
+        env:
+          COMPOSER: composer.l${{ matrix.laravel }}.json
+      - run: vendor-l${{ matrix.laravel }}/bin/phpunit --bootstrap vendor-l${{ matrix.laravel }}/autoload.php

@@ -1,0 +1,57 @@
+{
+    "name": "varizet/laravel",
+    "description": "Laravel integration for Varizet (واریزت): facade, config, signed webhook route and events, webhook registration command.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "varizet",
+        "laravel",
+        "payment",
+        "card-to-card",
+        "webhook"
+    ],
+    "require": {
+        "php": ">=8.1",
+        "illuminate/console": "^10.0 || ^11.0 || ^12.0",
+        "illuminate/contracts": "^10.0 || ^11.0 || ^12.0",
+        "illuminate/http": "^10.0 || ^11.0 || ^12.0",
+        "illuminate/routing": "^10.0 || ^11.0 || ^12.0",
+        "illuminate/support": "^10.0 || ^11.0 || ^12.0",
+        "varizet/varizet-php": "^1.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^8.0 || ^9.0 || ^10.0",
+        "phpunit/phpunit": "^10.5 || ^11.0"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/Varizet/varizet-php"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Varizet\\Laravel\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Varizet\\Laravel\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Varizet\\Laravel\\VarizetServiceProvider"
+            ],
+            "aliases": {
+                "Varizet": "Varizet\\Laravel\\Facades\\Varizet"
+            }
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

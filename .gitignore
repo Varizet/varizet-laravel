@@ -1,0 +1,6 @@
+/vendor/
+/vendor-l*/
+/.phpunit.cache/
+/composer.lock
+/composer.l*.json
+/composer.l*.lock
